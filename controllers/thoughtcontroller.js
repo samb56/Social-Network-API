@@ -6,6 +6,7 @@ const thoughtController = {
   getThoughts(req, res) {
     Thoughts.find()
       .populate({ path: 'username', select: '-__v' })
+      .populate({ path: 'reactions', select: '-__v' })
       .then((thoughts) => res.json(thoughts))
       .catch((err) => res.status(500).json(err))
   },
@@ -51,10 +52,10 @@ const thoughtController = {
       .then((thoughts) => res.json(thoughts))
       .catch((err) => res.status(500).json(err))
   },
-  deleteReaction(req, res) {
+  deleteReaction({ params }, res) {
     Thoughts.findOneAndUpdate(
-      { _id: req.params.thoughtId },
-      { $pull: { reactions: req.params.reactionId } }
+      { _id: params.thoughtId },
+      { $pull: { reactions: { _id: params.reactionId } } },
     )
       .then((thoughts) => res.json(thoughts))
       .catch((err) => res.status(500).json(err))
