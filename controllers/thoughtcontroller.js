@@ -12,8 +12,14 @@ const thoughtController = {
   },
   createThoughts(req, res) {
     Thoughts.create(req.body)
-
-      .then((thoughts) => res.json(thoughts))
+      .then((thoughtData) => {
+        return User.findOneAndUpdate(
+          { _id: req.body.userId },
+          { $push: { thoughts: thoughtData._id } },
+          { new: true }
+        )
+      })
+      .then((updatedUserData) => res.json(updatedUserData))
       .catch((err) => res.status(500).json(err))
   },
   getThoughtsId(req, res) {
@@ -24,7 +30,13 @@ const thoughtController = {
   },
   deleteThoughts(req, res) {
     Thoughts.deleteOne({ _id: req.params.id })
-      .then((thoughts) => res.json(thoughts))
+      .then((thoughtData) => {
+        return User.findOneAndUpdate(
+          { _id: req.body.userId },
+          { $pull: { thoughts: thoughtData._id } },
+          { new: true })
+      })
+      .then((userData) => res.json({ message: "Thought was deleted!" }))
       .catch((err) => res.status(500).json(err))
   },
   updateThoughts(req, res) {
