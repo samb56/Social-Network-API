@@ -10,7 +10,7 @@
 
   ## Description 
   This API works as a back end for an online social network. Using mongodb for storage, routes were created to add users, thoughts, and reactions to thoughts. Users can add other users to their friend list which is saved as friends data. Thoughts and reactions are associated with a unique user ID. Through the routes, edits can be made to any of the features as well.
-  [link to walkthrough video](https://youtu.be/gEpWh8oYOyY)) 
+  [link to walkthrough video](https://youtu.be/gEpWh8oYOyY)
 
   ## Installation 
   Installation starts with downloading the zip file containing all of the files and extracting everything within. Next, the folder should be opened within visual studio code or a functional equivalent and through the command terminal, "npm init" should be entered, followed by "npm i" to install all of the necessary packages. From there, the server should be started using the command "node server.js". Next using the loacal server address in insomnia, use any of the commands within the route files to test out if data is being added, deleted, modified, and viewed using the correspoding requests. 
